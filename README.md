@@ -14,7 +14,7 @@ Convert strings from ISO-8859-1 (Latin 1) to UTF-8 in pure Lua.
     luarocks install lua-latin1-utf8
     ```
 
-* Otherwise, just drop the file [lua-latin1-utf8.lua](./lua-latin1-utf8.lua) on any directory covered by `LUA_PATH` environment variable.
+* Otherwise, just drop the file [lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua) on any directory covered by `LUA_PATH` environment variable.
 
 ## Usage
 

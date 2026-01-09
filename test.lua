@@ -137,7 +137,12 @@ describe("lua-latin1-utf8", function()
         assert.are.equal("string", type(require("lua-latin1-utf8").version))
     end)
 
+    it("should return nil for fields not present in the library", function()
+        assert.are.equal("nil", type(require("lua-latin1-utf8").some))
+    end)
+
     describe("should throw error", function()
+
         it("trying to set the `version' field of the library", function()
             assert.has_error(
                 function()

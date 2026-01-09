@@ -15,6 +15,6 @@ Visit the repository for detailed info.]],
 build = {
     type = "builtin",
     modules = {
-        ["lua-latin1-utf8"] = "lua-latin1-utf8.lua"
+        ["lua-latin1-utf8"] = "src/lua-latin1-utf8.lua"
     }
 }
