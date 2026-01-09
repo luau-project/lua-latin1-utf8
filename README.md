@@ -84,20 +84,20 @@ print(statementUtf8)
 
 In order to run tests, you need to install:
 
-    * busted (testing library)
-    * iconv (a program to convert text in different encodings)
+* busted (testing library)
+* iconv (a program to convert text in different encodings)
 
 You can install [busted](https://github.com/lunarmodules/busted) through LuaRocks:
 
-    ```sh
-    luarocks install busted
-    ```
+```sh
+luarocks install busted
+```
 
 If you are on Windows, the test script tries to detect a possible `git` installation, and then use `iconv` provided by `git`. In case the test script failed to locate `iconv` installed on your computer, you can download the `iconv` program from different sources:
 
-    * [Git for Windows](https://git-scm.com/)
-    * [Cygwin](https://cygwin.org/)
-    * [MSYS2](https://www.msys2.org/)
+* [Git for Windows](https://git-scm.com/)
+* [Cygwin](https://cygwin.org/)
+* [MSYS2](https://www.msys2.org/)
 
 On Unix-like distributions (Linux, macOS, BSD), most likely `iconv` is already installed on your system.
 
@@ -119,15 +119,15 @@ Since `lua-latin1-utf8` is a tiny Lua library, one primary goal is the achieveme
 
 Additionally to the previous test dependencies, you have to install the following libraries to run code coverage on tests:
 
-    * luacov (code coverage library)
+* luacov (code coverage library)
 
 You can install [luacov](https://github.com/lunarmodules/luacov) through LuaRocks:
 
-    ```sh
-    luarocks install luacov
-    ```
+```sh
+luarocks install luacov
+```
 
 After luacov installation:
 
-    1. Run code coverage on tests: `lua -lluacov test.lua`;
-    2. Browse the file `luacov.report.out` to analyze the results.
+1. Run code coverage on tests: `lua -lluacov test.lua`;
+2. Browse the file `luacov.report.out` to analyze the results.
