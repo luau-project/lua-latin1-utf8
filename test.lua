@@ -34,6 +34,13 @@ describe("lua-latin1-utf8", function()
         return table.concat(results)
     end
 
+    -- gets a temporary file name
+    local function tmpFile()
+        local tmpDir = os.getenv("TMP") or os.getenv("TMPDIR") or "."
+        local filename = ("lua-latin1-utf8-%s"):format(os.getenv("RANDOM") or tostring(math.random(1, 1e6)))
+        return pathJoin(tmpDir, filename)
+    end
+
     -- surrounds a path
     -- with double quotes
     -- for shell execution
@@ -45,9 +52,9 @@ describe("lua-latin1-utf8", function()
     -- convertion results of `inputString'
     -- running the oracle (`iconvProgram')
     local function getConversionResults(inputString, iconvProgram, convertFunction)
-        local convertTmpname = os.tmpname()
+        local convertTmpname = tmpFile()
         local quotedConvertTmpname = DQUOTE(convertTmpname)
-        local iconvTmpname = os.tmpname()
+        local iconvTmpname = tmpFile()
         local quotedIconvTmpname = DQUOTE(iconvTmpname)
         local quotedIconv = DQUOTE(iconvProgram)
         local CMD = ("%s -f ISO-8859-1 -t UTF-8 %s>%s"):format(
