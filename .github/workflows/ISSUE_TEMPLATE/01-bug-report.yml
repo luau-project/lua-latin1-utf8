@@ -1,0 +1,57 @@
+name: Bug Report
+description: Bugs and unintended behavior
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report!
+  - type: input
+    id: lua-version
+    attributes:
+      label: Lua
+      description: The version of Lua / LuaJIT / OpenResty
+      placeholder: "e.g.: 5.1, 5.2, 5.3, 5.4, 5.5, luajit, openresty"
+    validations:
+      required: false
+  - type: input
+    id: luarocks-version
+    attributes:
+      label: LuaRocks
+      description: The version of LuaRocks
+      placeholder: "e.g.: none, 3.12.3, 3.12.2, 3.9.1"
+    validations:
+      required: false
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: The operating system running lua-latin1-utf8
+      placeholder: "e.g.: Windows, Linux, macOS, FreeBSD, NetBSD, OpenBSD"
+    validations:
+      required: false
+  - type: input
+    id: arch
+    attributes:
+      label: Architecture
+      description: The architecture of the operating system running lua-latin1-utf8
+      placeholder: "e.g.: x86_64, x86, arm64"
+    validations:
+      required: false
+  - type: input
+    id: toolchain
+    attributes:
+      label: Toolchain
+      description: C compiler toolchain used to build Lua / LuaJIT / OpenResty
+      placeholder: "e.g.: GCC, Clang, MSVC, clang-cl"
+    validations:
+      required: false
+  - type: textarea
+    id: desc
+    attributes:
+      label: Description
+      description: Use plain English to describe the steps required to reproduce the unintended behavior
+    validations:
+      required: false
