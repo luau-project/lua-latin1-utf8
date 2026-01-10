@@ -50,16 +50,17 @@ jobs:
             Select-Object -ExpandProperty FullName -First 1;
 
           $module_version = lua -e "io.write(require('lua-latin1-utf8').version)";
+          $expected_module_tag = "v" + $module_version;
           $rockspec_tag = lua -e "dofile(arg[0]); io.write(source.tag);" -- "${rockspec}";
           $github_tag = "${{ github.ref_name }}";
 
-          if ("${module_version}" -ne "${github_tag}")
+          if ("${expected_module_tag}" -ne "${github_tag}")
           {
             $color_msg = (0x1b -as [char]) + "[31m";
             $color_reset = (0x1b -as [char]) + "[0m";
             $color_tag = (0x1b -as [char]) + "[33m";
 
-            Write-Host "${color_msg}Tag mismatch${color_reset}: GitHub tag (${color_tag}${github_tag}${color_reset}) != module version (${color_tag}${module_version}${color_reset})";
+            Write-Host "${color_msg}Tag mismatch${color_reset}: GitHub tag (${color_tag}${github_tag}${color_reset}) != expected module version (${color_tag}${expected_module_tag}${color_reset})";
             exit 1;
           }
 
