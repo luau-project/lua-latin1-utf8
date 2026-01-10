@@ -93,11 +93,11 @@ You can install [busted](https://github.com/lunarmodules/busted) through LuaRock
 luarocks install busted
 ```
 
-If you are on Windows, the test script tries to detect a possible `git` installation, and then use `iconv` provided by `git`. In case the test script failed to locate `iconv` installed on your computer, you can download the `iconv` program from different sources:
+If you are on Windows, the test script tries to detect a possible git, MSYS2 or Cygwin installation, and then use `iconv` from there. In case the test script failed to locate `iconv` installed on your computer, you can download the `iconv` program from different sources:
 
 * [Git for Windows](https://git-scm.com/)
-* [Cygwin](https://cygwin.org/)
 * [MSYS2](https://www.msys2.org/)
+* [Cygwin](https://cygwin.org/)
 
 On Unix-like distributions (Linux, macOS, BSD), most likely `iconv` is already installed on your system.
 

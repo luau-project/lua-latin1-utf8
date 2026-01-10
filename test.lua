@@ -18,17 +18,25 @@ describe("lua-latin1-utf8", function()
     local iconv = nil
 
     -- joins a path
-    local function pathJoin(...)
-        local params = {...}
+    local pathJoin
+    pathJoin = function(params)
         local results = {}
-        for i = 1, #params do
-            local p = params[i]
-            if (type(p) == "string") then
-                if (p:sub(-#dirSeparator) == dirSeparator) then
+        local tParams = type(params)
+        if (tParams ~= "table") then
+            error(("bad #1 argument (table expected, but got %s)"):format(tParams))
+        end
+        local nParams = #params
+        local sepLen = #dirSeparator
+        for i, p in ipairs(params) do
+            local tp = type(p)
+            if (tp == "string") then
+                if (p:sub(-sepLen) == dirSeparator or i == nParams) then
                     table.insert(results, p)
                 else
-                    table.insert(results, p .. ((i < #params) and dirSeparator or ""))
+                    table.insert(results, p .. dirSeparator)
                 end
+            elseif (tp == "table") then
+                table.insert(results, pathJoin(p))
             end
         end
         return table.concat(results)
@@ -38,7 +46,7 @@ describe("lua-latin1-utf8", function()
     local function tmpFile()
         local tmpDir = os.getenv("TMP") or os.getenv("TMPDIR") or "."
         local filename = ("lua-latin1-utf8-%s"):format(os.getenv("RANDOM") or tostring(math.random(1, 1e6)))
-        return pathJoin(tmpDir, filename)
+        return pathJoin({tmpDir, filename})
     end
 
     -- surrounds a path
@@ -74,9 +82,9 @@ describe("lua-latin1-utf8", function()
             local batchFile = io.open(batchTmpname, "wb")
             batchFile:write(batchContent)
             batchFile:close()
-            local windir = os.getenv("WINDIR") or ""
+            local systemDrive = os.getenv("SystemDrive") or "C:"
             CMD = ("%s /C %s"):format(
-                pathJoin(windir, "System32", "cmd.exe"),
+                pathJoin({systemDrive, "Windows", "System32", "cmd.exe"}),
                 quotedBatchTmpname
             )
         else
@@ -102,7 +110,7 @@ describe("lua-latin1-utf8", function()
     setup(function()
         local PATH = os.getenv("PATH") or ""
         for p in PATH:gmatch("[^" .. pathDelimiter .. "]+") do
-            local _iconv = pathJoin(p, "iconv" .. executableExtension)
+            local _iconv = pathJoin({p, "iconv" .. executableExtension})
             local f = io.open(_iconv, "rb")
             if (f ~= nil) then
                 iconv = _iconv
@@ -115,11 +123,11 @@ describe("lua-latin1-utf8", function()
             -- tries to find iconv from
             -- a `Git for Windows` installation
             local regRoots = { "HKLM", "HKCU" }
-            local windir = os.getenv("WINDIR") or ""
+            local systemDrive = os.getenv("SystemDrive") or "C:"
 
             for i, root in ipairs(regRoots) do
                 local CMD = ("%s /C reg query %s\\SOFTWARE\\GitForWindows /v InstallPath 2>NUL"):format(
-                    DQUOTE(pathJoin(windir, "System32", "cmd.exe")),
+                    DQUOTE(pathJoin({systemDrive, "Windows", "System32", "cmd.exe"})),
                     root
                 )
 
@@ -130,7 +138,7 @@ describe("lua-latin1-utf8", function()
                 for line in output:gmatch("[^\r\n]+") do
                     local installPath = line:match("%s*InstallPath%s+REG_SZ%s+(.*)")
                     if (installPath ~= nil) then
-                        local _iconv = pathJoin(installPath, "usr", "bin", "iconv.exe")
+                        local _iconv = pathJoin({installPath, "usr", "bin", "iconv.exe"})
 
                         local f = io.open(_iconv, "rb")
                         if (f ~= nil) then
@@ -145,13 +153,21 @@ describe("lua-latin1-utf8", function()
 
         if (IS_WINDOWS) then
             -- tries to find iconv from
-            -- a standard MSYS2 installation
-            local _iconv = pathJoin("C:", "msys64", "usr", "bin", "iconv.exe")
-            local f = io.open(_iconv, "rb")
-            if (f ~= nil) then
-                iconv = _iconv
-                f:close()
-                return
+            -- standard MSYS2 or Cygwin locations
+            local possibleLocations = {
+                {os.getenv("SystemDrive") or "C:", "msys64", "usr", "bin", "iconv.exe"},
+                {os.getenv("SystemDrive") or "C:", "cygwin64", "bin", "iconv.exe"},
+                {os.getenv("SystemDrive") or "C:", "msys", "usr", "bin", "iconv.exe"},
+                {os.getenv("SystemDrive") or "C:", "cygwin", "bin", "iconv.exe"}
+            }
+            for i, location in ipairs(possibleLocations) do
+                local _iconv = pathJoin(location)
+                local f = io.open(_iconv, "rb")
+                if (f ~= nil) then
+                    iconv = _iconv
+                    f:close()
+                    return
+                end
             end
         end
     end)
