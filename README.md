@@ -98,21 +98,25 @@ You can install [busted](https://github.com/lunarmodules/busted) through LuaRock
 luarocks install busted
 ```
 
+#### iconv on Windows
+
 If you are on Windows, the test script tries to detect a possible git, MSYS2 or Cygwin installation, and then use `iconv` from there. In case the test script failed to locate `iconv` installed on your computer, you can download the `iconv` program from different sources:
 
 * [Git for Windows](https://git-scm.com/)
 * [MSYS2](https://www.msys2.org/)
 * [Cygwin](https://cygwin.org/)
 
-On Unix-like distributions (Linux, macOS, BSD), most likely `iconv` is already installed on your system.
-
 > [!IMPORTANT]
 > 
-> The test suite requires the directory of the `iconv` program to be on your `PATH` environment variable.
+> In case you installed the `iconv` program in a different way, make sure to place it on your `PATH` environment variable.
 > 
 > ```sh
 > iconv --help
 > ```
+
+#### iconv on Unix
+
+On Unix-like distributions (Linux, macOS, BSD), the chances are high that `iconv` is already installed on your system. If by any chance you have `iconv` installed somewhere else, place it on your `PATH` environment variable.
 
 ### Run tests
 
