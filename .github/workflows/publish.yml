@@ -41,7 +41,7 @@ jobs:
 
       - name: Install lua-latin1-utf8
         working-directory: lua-latin1-utf8
-        run: luarocks make "rockspecs/${{ env.ROCKSPEC_VERSION }}"
+        run: luarocks make "rockspecs/${{ env.ROCKSPEC }}"
 
       - name: Make sure that tags from GitHub and rockspec are equal
         run: |
