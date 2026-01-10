@@ -13,6 +13,9 @@ Visit the repository for detailed info.]],
     homepage = "https://github.com/luau-project/lua-latin1-utf8",
     license = "MIT"
 }
+dependencies = {
+   "lua >= 5.1"
+}
 build = {
     type = "builtin",
     modules = {
