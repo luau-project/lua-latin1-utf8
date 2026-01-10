@@ -57,12 +57,33 @@ describe("lua-latin1-utf8", function()
         local iconvTmpname = tmpFile()
         local quotedIconvTmpname = DQUOTE(iconvTmpname)
         local quotedIconv = DQUOTE(iconvProgram)
-        local CMD = ("%s -f ISO-8859-1 -t UTF-8 %s>%s"):format(
-            quotedIconv, quotedConvertTmpname, quotedIconvTmpname
-        )
         local convertInput = io.open(convertTmpname, "wb")
         convertInput:write(inputString)
         convertInput:close()
+        local CMD
+        local batchTmpname
+        if (IS_WINDOWS) then
+            local iconvBaseName = "iconv.exe";
+            local iconvDirname = iconvProgram:sub(1, -(#iconvBaseName + 1))
+            local quotedIconvDirname = DQUOTE(iconvDirname)
+            local batchContent = ("cd %s\r\n%s -f ISO-8859-1 -t UTF-8 %s>%s"):format(
+                quotedIconvDirname, iconvBaseName, quotedConvertTmpname, quotedIconvTmpname
+            )
+            batchTmpname = tmpFile() .. ".bat"
+            local quotedBatchTmpname = DQUOTE(batchTmpname)
+            local batchFile = io.open(batchTmpname, "wb")
+            batchFile:write(batchContent)
+            batchFile:close()
+            local windir = os.getenv("WINDIR") or ""
+            CMD = ("%s /C %s"):format(
+                pathJoin(windir, "System32", "cmd.exe"),
+                quotedBatchTmpname
+            )
+        else
+            CMD = ("%s -f ISO-8859-1 -t UTF-8 %s>%s"):format(
+                quotedIconv, quotedConvertTmpname, quotedIconvTmpname
+            )
+        end
         local process = io.popen(CMD)
         process:read("*a")
         process:close()
@@ -72,6 +93,9 @@ describe("lua-latin1-utf8", function()
         local convertOutput = convertFunction(inputString)
         os.remove(convertTmpname)
         os.remove(iconvTmpname)
+        if (IS_WINDOWS) then
+            os.remove(batchTmpname)
+        end
         return { expected = iconvOutput, got = convertOutput }
     end
 
