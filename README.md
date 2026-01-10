@@ -1,10 +1,21 @@
 # lua-latin1-utf8
 
+[![CI](https://github.com/luau-project/lua-latin1-utf8/actions/workflows/ci.yml/badge.svg)](./.github/workflows/ci.yml)
 [![Coverage Status](https://codecov.io/gh/luau-project/lua-latin1-utf8/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luau-project/lua-latin1-utf8/tree/main)
+[![LuaRocks](https://img.shields.io/luarocks/v/luau-project/lua-latin1-utf8?label=LuaRocks&color=2c3e67)](https://luarocks.org/modules/luau-project/lua-latin1-utf8)
 
 ## Overview
 
 Convert strings from ISO-8859-1 (Latin 1) to UTF-8 in pure Lua.
+
+## Table of Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Tests](#tests)
+* [Security](#security)
+* [Contributing](#contributing)
+* [History](#history)
 
 ## Installation
 
@@ -140,3 +151,19 @@ After luacov installation:
 
 1. Run code coverage on tests: `lua -lluacov test.lua`;
 2. Browse the file `luacov.report.out` to analyze the results.
+
+## Security
+
+Have you found a security issue on this software? Visit the [security](./SECURITY.md) page for instructions to report privately.
+
+## Contributing
+
+Do you want to fix a bug or have an idea to improve this project? See the [contribution](./CONTRIBUTING.md)
+page.
+
+## History
+
+Browse the [changelog](./CHANGELOG.md).
+
+---
+[Back to Top](#lua-latin1-utf8)
