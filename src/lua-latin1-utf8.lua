@@ -22,9 +22,8 @@
 
 local VERSION = "0.0.1"
 
-local NULL_CHAR = "\0"
-
 local UTF8_TABLE = {
+	"\0",
 	"\1",
 	"\2",
 	"\3",
@@ -289,12 +288,7 @@ local UTF8_TABLE = {
 -- @param c the character to convert.
 -- @return the resulting UTF-8 sequence.
 local function charConverter(c)
-    local result = NULL_CHAR
-    local b = c:byte(1, 1)
-    if (b ~= 0) then
-        result = UTF8_TABLE[b]
-    end
-    return result
+    return UTF8_TABLE[c:byte(1, 1) + 1]
 end
 
 --- Converts a string from

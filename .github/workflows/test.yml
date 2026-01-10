@@ -82,21 +82,12 @@ jobs:
         run: luarocks install busted
 
       - name: Install luacov to run code coverage
-        # luacov is not ready yet for Lua 5.5
-        if: ${{ matrix.lua-version != '5.5' }}
         run: luarocks install luacov
-
-      - name: Run code coverage through luacov
-        # luacov is not ready yet for Lua 5.5
-        if: ${{ matrix.lua-version != '5.5' }}
-        run: lua "-lluacov" "test.lua"
 
       - name: Install through LuaRocks
         run: luarocks make "rockspecs/lua-latin1-utf8-dev-1.rockspec"
 
       - name: Run tests
-        # without luacov, only run the test suite
-        if: ${{ matrix.lua-version == '5.5' }}
         run: lua "test.lua"
 
       - name: Run the sample code out of the tree
@@ -104,8 +95,13 @@ jobs:
           cd "${{ runner.temp }}"
           lua "${{ github.workspace }}/sample.lua"
 
-      - name: Upload coverage reports to Codecov
         # luacov is not ready yet for Lua 5.5
+      - name: Run code coverage through luacov
+        if: ${{ matrix.lua-version != '5.5' }}
+        run: lua "-lluacov" "test.lua"
+
+        # luacov is not ready yet for Lua 5.5
+      - name: Upload coverage reports to Codecov
         if: ${{ matrix.lua-version != '5.5' }}
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:

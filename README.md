@@ -35,7 +35,13 @@ local utf8Str = latin1_utf8(latin1Str)
 
 ### In-depth
 
-Consider the following statement: `Lua is an AWESOME programming language`. Such statement translated to `pt-BR` is more or less like `Lua é uma ÓTIMA linguagem de programação`.
+Consider the following statement: `Lua is an AWESOME programming language`.
+
+Translated to `pt-BR`, such statement is more or less like
+
+```
+Lua é uma ÓTIMA linguagem de programação
+```
 
 Under the ISO-8859-1 character set, the `pt-BR` statement can be encoded to the following sequence of bytes (hex form):
 
@@ -74,7 +80,6 @@ local statementLatin1 = table.concat(statementCharsLatin1)
 local statementUtf8 = latin1_utf8(statementLatin1)
 
 -- prints the UTF-8 encoded statement
--- "Lua é uma ÓTIMA linguagem de programação"
 print(statementUtf8)
 ```
 

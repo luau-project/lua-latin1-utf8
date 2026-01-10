@@ -25,5 +25,4 @@ local statementLatin1 = table.concat(statementCharsLatin1)
 local statementUtf8 = latin1_utf8(statementLatin1)
 
 -- prints the UTF-8 encoded statement
--- "Lua é uma ÓTIMA linguagem de programação"
 print(statementUtf8)
