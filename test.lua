@@ -26,14 +26,16 @@ do
     end
 end
 
-local ltestlib = require("ltestlib")
-local latin1_utf8
-
 -- configs for the runner environment
 local dirSeparator = package.config:sub(1, 1)
 local IS_WINDOWS = dirSeparator == "\\"
 local pathDelimiter = IS_WINDOWS and ";" or ":"
 local executableExtension = IS_WINDOWS and ".exe" or ""
+
+package.path = "." .. dirSeparator .. "?.lua;" .. package.path
+
+local ltestlib = require("ltestlib")
+local latin1_utf8
 
 -- the raw path (unquoted)
 -- to the `iconv' program,
@@ -204,7 +206,13 @@ end)
 
 testnames.table_on_require = "lua-latin1-utf8 should return a `table' on require"
 ltestlib.new_test(testnames.table_on_require, function()
-    latin1_utf8 = require("lua-latin1-utf8")
+    local ok, latin1_utf8_mod = pcall(require, "lua-latin1-utf8")
+    if (ok) then
+        latin1_utf8 = latin1_utf8_mod
+    else
+        package.path = "." .. dirSeparator .. "src" .. dirSeparator .. "?.lua;" .. package.path
+        latin1_utf8 = require("lua-latin1-utf8")
+    end
     ltestlib.assert_equal(testnames.table_on_require, "table", type(latin1_utf8))
 end)
 
