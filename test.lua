@@ -30,9 +30,9 @@ local ltestlib = require("ltestlib")
 local latin1_utf8
 
 -- configs for the runner environment
-local IS_WINDOWS = package.config:sub(1, 1) == "\\"
+local dirSeparator = package.config:sub(1, 1)
+local IS_WINDOWS = dirSeparator == "\\"
 local pathDelimiter = IS_WINDOWS and ";" or ":"
-local dirSeparator = IS_WINDOWS and "\\" or "/"
 local executableExtension = IS_WINDOWS and ".exe" or ""
 
 -- the raw path (unquoted)
