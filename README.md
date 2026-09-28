@@ -1,6 +1,6 @@
 # lua-latin1-utf8
 
-[![LuaRocks](https://img.shields.io/luarocks/v/luau-project/lua-latin1-utf8?label=LuaRocks&color=2c3e67)](https://luarocks.org/modules/luau-project/lua-latin1-utf8) [![Coverage Status](https://codecov.io/gh/luau-project/lua-latin1-utf8/branch/main/graph/badge.svg)](https://app.codecov.io/gh/luau-project/lua-latin1-utf8/tree/main)
+[![LuaRocks](https://img.shields.io/luarocks/v/luau-project/lua-latin1-utf8?label=LuaRocks&color=2c3e67)](https://luarocks.org/modules/luau-project/lua-latin1-utf8) [![codecov](https://codecov.io/gh/luau-project/lua-latin1-utf8/graph/badge.svg?token=FGEAX8UWKL)](https://codecov.io/gh/luau-project/lua-latin1-utf8)
 
 ## Overview
 
