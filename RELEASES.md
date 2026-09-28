@@ -8,13 +8,13 @@ This document provides guidance to publish a new release for `lua-latin1-utf8`.
 
 1. Create a feature branch for the changes;
 
-2. Bump the version on `VERSION` macro defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
+2. Bump the version on `VERSION` field defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
 
 > [!IMPORTANT]
 > 
 > The version assigned to `VERSION` must match the following regex pattern: `^[0-9]+(\.[0-9]+)+$`. Thus, `0.3` is allowed, `0.3.1` is also allowed, but a single number `1` is **NOT** allowed (*unless this pattern is fixed on every spot at [./.github/workflows/publish.yml](./.github/workflows/publish.yml)*).
 
-3. Within the makefiles for Unix (`Makefile.unix`) and Windows (`Makefile.win`), change `PKG_VERSION` variable to the same value defined on `VERSION` macro defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
+3. Within the makefiles for Unix (`Makefile.unix`) and Windows (`Makefile.win`), change `PKG_VERSION` variable to the same value defined on `VERSION` field defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
 
 4. On Unix, in the project directory, run
 
@@ -38,7 +38,7 @@ This document provides guidance to publish a new release for `lua-latin1-utf8`.
 
 After all the previous steps were performed:
 
-1. Create a new annotated tag (e.g.: `git tag -a "v0.2.0" -m "Release v0.2.0"`) changing `0.2.0` in the previous command to contain the exact **SAME VERSION** on `VERSION` macro defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
+1. Create a new annotated tag (e.g.: `git tag -a "v0.2.0" -m "Release v0.2.0"`) changing `0.2.0` in the previous command to contain the exact **SAME VERSION** on `VERSION` field defined in the file [src/lua-latin1-utf8.lua](./src/lua-latin1-utf8.lua);
 
 2. Push the new tag to the remote repository (e.g.: `git push origin v0.2.0`);
 
