@@ -96,16 +96,11 @@ print(statementUtf8)
 
 ### Environment setup to run tests
 
-In order to run tests, you need to install:
+In order to run tests, you need to install the `iconv` program.
 
-* busted (testing library)
-* iconv (a program to convert text in different encodings)
-
-You can install [busted](https://github.com/lunarmodules/busted) through LuaRocks:
-
-```sh
-luarocks install busted
-```
+> [!TIP]
+> 
+> `iconv` is a program to convert text in different encodings.
 
 #### iconv on Windows
 
@@ -147,7 +142,7 @@ luarocks install luacov
 
 After luacov installation:
 
-1. Run code coverage on tests: `lua -lluacov test.lua`;
+1. Run code coverage on tests: `lua test.lua --coverage`;
 2. Browse the file `luacov.report.out` to analyze the results.
 
 ## Security
