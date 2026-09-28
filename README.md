@@ -142,8 +142,19 @@ luarocks install luacov
 
 After luacov installation:
 
-1. Run code coverage on tests: `lua test.lua --coverage`;
-2. Browse the file `luacov.report.out` to analyze the results.
+1. Collect code coverage on tests:
+
+    ```bash
+    lua test.lua --coverage
+    ```
+
+2. Run `luacov` to generate the report (`luacov.report.out`):
+
+    ```bash
+    luacov
+    ```
+
+3. Open the file `luacov.report.out` on a text editor to analyze the coverage results.
 
 ## Security
 
